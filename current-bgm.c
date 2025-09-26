@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/inotify.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <limits.h>
 #include <time.h>
 #include <utime.h>
