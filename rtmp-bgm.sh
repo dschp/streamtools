@@ -12,6 +12,10 @@ while true; do
 
     for file in $(ls | grep -v .txt$ | shuf); do
         echo "Playing: $file"
+        if [ ! -e "$file" ]; then
+            echo "$file does not exist, continuing to the next file."; echo
+            continue
+        fi
 
         song=${file%.*}
         song=$(echo $song | sed 's/^ArtIsSound\./Art Is Sound \/ /')
