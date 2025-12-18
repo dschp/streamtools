@@ -4,6 +4,6 @@ clean:
 .PHONY: all clean
 
 clock: clock.c
-	${CC} -o $@ $?
+	${CC} -o $@ $<
 current-bgm: current-bgm.c
-	${CC} -o $@ $?
+	${CC} -o $@ $<
