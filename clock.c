@@ -53,6 +53,7 @@ main(int argc, char *argv[])
 	struct tm *tm;
 	char date_buf[20], time_buf[20];
 
+	printf("\033[?25l");
 	do {
 		printf("\033[2J\033[;1H");
 

@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
 	const char *filepath = argv[1];
 
 	touch(filepath);
+	printf("\033[?25l");
 	print_content(filepath);
 
 	int fd;
