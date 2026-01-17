@@ -11,22 +11,23 @@ bgm_list=$(mktemp /tmp/bgmlist.XXXXXXXX)
 
 while true; do
     echo "Loop starting..."; echo
-    ls | grep -E '\.(mp[34]|m4a)$' | shuf > $bgm_list
+	find -type f | grep -E '\.(mp3|m4a)$' | sed 's/^\.\///' | shuf > $bgm_list
 	cnt=$(wc -l < $bgm_list)
 
 	for ((i=1; i<=$cnt; i++)); do
-		file=$(sed -n "$i{p;q}" $bgm_list)
+		filepath=$(sed -n "$i{p;q}" $bgm_list)
+		filename="${filepath##*/}"
 
-        echo "===== Playing: $file ====="
-        if [ ! -e "$file" ]; then
-            echo "$file does not exist, continuing to the next file."; echo
+        echo "===== Playing: $filename ====="
+        if [ ! -e "$filepath" ]; then
+            echo "$filepath does not exist, continuing to the next file."; echo
             continue
         fi
 
-        song=${file%.*}
-        echo "🎵 $song" > $XDG_RUNTIME_DIR/current-bgm.txt
+        songname=${filename%.*}
+        echo "🎵 $songname" > $XDG_RUNTIME_DIR/current-bgm.txt
 
-        ffmpeg -re -i "$file" -c:v copy -c:a aac -ar 48000 -f flv $RTMP_BGM
+        ffmpeg -re -i "$filepath" -c:v copy -c:a aac -ar 48000 -f flv $RTMP_BGM
 
         echo; echo "Waiting for next song... (Press 'q' to quit)"
         read -t 5 -n 1 input
